@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 
 public class Main {
 
@@ -38,13 +39,37 @@ public class Main {
         OutputStream os = socket.getOutputStream();
         OutputStreamWriter ows = new OutputStreamWriter(os);
         BufferedWriter bw = new BufferedWriter(ows);
+        Product product = null;
+        LinkedList<String> prodId = new LinkedList<>();
+        LinkedList<String> titleList = new LinkedList<>();
+        LinkedList<String> priceList = new LinkedList<>();
+        LinkedList<String> ratingList = new LinkedList<>();
+        
+        
 
-        while (true) {
+        while (null != (line = br.readLine())) {
             String result = br.readLine();
             result = result.trim();
-            if ("end".equals(result))
-                break;
-                System.out.printf(" %s\n", result);
-         }
+            System.out.printf(" %s\n", result);
+
+            if (line.length() <=0)
+                continue;
+            String[] des = line.split(":");
+
+            switch (des[0]) {
+                case prod_id:
+                    prodId.add(des[1]);
+                    break;
+                case title:
+                    titleList.add(des[1]);
+                    break;
+                case price:
+                    priceList.add(des[1]);
+                    break;
+                case rating:
+                    ratingList.add(des[1]);
+                    break;                    
+            }
+        }
       }
 }
