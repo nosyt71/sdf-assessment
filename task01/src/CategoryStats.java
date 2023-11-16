@@ -9,13 +9,9 @@ public class CategoryStats {
     private float lowestRating = 6;
     private String lowestRatedApp;
     private List<Float> allRatings = new LinkedList<>();
-    private int totalApps;
-    private int discardedLines;
 
     public CategoryStats(String category) {
         this.category = category;
-        this.totalApps = 0;
-        this.discardedLines = 0;
     }
 
     public void compute(PlaystoreEntry entry) {

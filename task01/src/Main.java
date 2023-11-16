@@ -1,6 +1,5 @@
-import java.io.BufferedReader; 
+import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,19 +22,15 @@ public class Main {
         BufferedReader br = new BufferedReader(fr);
 
         Map<String, CategoryStats> stats = new HashMap<>();
-        Map<String, Integer> discardedPerCat = new HashMap<>();
         int totalLinesRead = 0;
         int discardLines = 0;
 
         br.readLine();
         
         br.lines()
-           // .peek(line -> totalLinesRead++)
+         // .peek(line -> totalLinesRead++)
             .filter(line -> !line.contains("NaN"))
-            .peek(line -> {
-                String category = line.split(",")[1].trim();
-                discardedPerCat.put(category, discardedPerCat.getOrDefault(category, 0) + 1);
-            })            .map(line -> line.split(",")) 
+            .map(line -> line.split(",")) 
             .map(cols -> new PlaystoreEntry(cols[COL_APP].trim(), cols[COL_CAT].trim(), Float.parseFloat(cols[COL_RAT].trim()) ))
             .collect(Collectors.groupingBy(entry -> entry.category())) 
             .forEach((String category, List<PlaystoreEntry> entries) -> {
