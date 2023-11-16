@@ -33,9 +33,6 @@ public class CategoryStats {
     public Float averageRating() {
         return allRatings.stream().reduce(0f, (acc, v) -> acc + v) / allRatings.size();
     }
-    
-    public int getDiscardedLines() {return discardedLines;}
-    public void incrementDiscardedLines() {discardedLines++;}
 
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
