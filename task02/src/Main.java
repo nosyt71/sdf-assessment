@@ -4,7 +4,9 @@ import java.io.BufferedWriter;
 import java.io.Console;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 public class Main {
 
@@ -18,46 +20,31 @@ public class Main {
         } else if (args.length == 2) {
             port = Integer.parseInt(args[1]);
             serverName = args[0];
-        } else {
+        } else if (args.length == 0) {
             port = 3000;
+        } else {
+            System.out.println("Input Error");
+            return;
         }
 
-      Socket socket = new Socket(serverName, port);
+        Socket socket = new Socket(serverName, port);
 
-      System.out.println("Connected to server");
-      String line = "";
+        System.out.println("Connected to server");
+        String line = "";
 
-      InputStream is = socket.getInputStream();
-      InputStreamReader isr = new InputStreamReader(is);
-      BufferedReader br = new BufferedReader(isr);
+        InputStream is = socket.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+        OutputStream os = socket.getOutputStream();
+        OutputStreamWriter ows = new OutputStreamWriter(os);
+        BufferedWriter bw = new BufferedWriter(ows);
 
-      line = br.readLine();
-
-      System.out.printf("SERVER RESPONSE: %s\n", line);
-
-    //   boolean stop = false;
-    //   while (!stop) {
-    //      String line = "";
-    //      line = line.trim();
-    //      stop = "exit".equals(line);
-
-    //      bw.write(line + "\n");
-    //      bw.flush();
-
-    //      if (stop)
-    //         continue;
-
-    //      line = br.readLine();
-    //      System.out.printf(">> result: %s\n", line);
-    //   }
-
-    //   // Close the stream
-    //   bw.flush();
-    //   osw.flush();
-    //   osw.close();
-    //   isr.close();
-    //   socket.close();
-
-   }
-   
+        while (true) {
+            String result = br.readLine();
+            result = result.trim();
+            if ("end".equals(result))
+                break;
+                System.out.printf(" %s\n", result);
+         }
+      }
 }
